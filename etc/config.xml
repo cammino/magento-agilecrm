@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Cammino_Agile>
+            <version>0.1.0</version>
+        </Cammino_Agile>
+    </modules>
+
+    <!-- Global Module's Configs -->
+    <global>
+
+        <!-- Module's Blocks -->
+        <blocks>
+            <agile>
+                <class>Cammino_Agile_Block</class>
+            </agile>
+        </blocks>
+        
+        <!-- Module's Models -->
+        <models>
+            <agilecrm>
+                <class>Cammino_Agile_Model</class>
+            </agilecrm>
+        </models>
+
+        <!-- Module's Events -->
+        <events>
+            <checkout_onepage_controller_success_action>
+                <observers>
+                    <agile_observer>
+                        <type>singleton</type>
+                        <class>Cammino_Agile_Model_Observer</class>
+                        <method>injectScript</method>
+                    </agile_observer>
+                </observers>
+            </checkout_onepage_controller_success_action>       
+        </events>
+    </global>
+
+    <!-- Front end -->
+    <frontend>
+        <routers>
+            <agile>
+                <use>standard</use>
+                <args>
+                    <module>Cammino_Agile</module>
+                    <frontName>agile</frontName>
+                </args>
+            </agile>
+        </routers>
+    </frontend>
+</config>

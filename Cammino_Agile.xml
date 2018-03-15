@@ -1,0 +1,8 @@
+<config>
+	<modules>
+		<Cammino_Agile>
+			<active>true</active>
+			<codePool>community</codePool>
+		</Cammino_Agile>
+	</modules>
+</config>

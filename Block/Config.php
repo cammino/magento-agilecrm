@@ -1,7 +1,19 @@
 <?php
 class Cammino_Agile_Block_Config extends Mage_Core_Block_Template
 {
+	private $domain;
+    private $key;    
+	
+	// Agile CMS Configs
+    protected function _construct() {
+		$this->domain = Mage::getStoreConfig("newsletter/agile/domain");
+        $this->key = Mage::getStoreConfig("newsletter/agile/key");        
+    }
+
+	// Inject code on success order page, and send contact values to Agile CRM
     protected function _toHtml() {
+
+		// Contact/Order Infos
 		$orderId = Mage::getSingleton( 'checkout/session' )->getLastRealOrderId();
 		$order = Mage::getModel( 'sales/order' )->loadByIncrementId( $orderId );
 
@@ -26,10 +38,12 @@ class Cammino_Agile_Block_Config extends Mage_Core_Block_Template
 			$tags[] = $product->getUrlKey();
         }
 			 
+		// Inject code on success order page
+		// and send contact values to Agile CRM
 		return '
 			<script src="https://vitalatman.agilecrm.com/stats/min/agile-min.js"></script>
 			<script>
-				_agile.set_account("gtuho2ctusfou7pahpi5l60un8","canovas");
+				_agile.set_account("' . $this->key . '","' . $this->domain . '");
 				_agile.track_page_view();
 			</script>
 			<script type="text/javascript">

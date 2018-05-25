@@ -1,52 +1,68 @@
 <?xml version="1.0"?>
 <config>
     <modules>
-        <Cammino_Agile>
+        <Cammino_Agilecrm>
             <version>0.1.0</version>
-        </Cammino_Agile>
+        </Cammino_Agilecrm>
     </modules>
-
-    <!-- Global Module's Configs -->
     <global>
-
-        <!-- Module's Blocks -->
         <blocks>
-            <agile>
-                <class>Cammino_Agile_Block</class>
-            </agile>
+            <agilecrm>
+                <class>Cammino_Agilecrm_Block</class>
+            </agilecrm>
         </blocks>
         
-        <!-- Module's Models -->
         <models>
             <agilecrm>
-                <class>Cammino_Agile_Model</class>
+                <class>Cammino_Agilecrm_Model</class>
             </agilecrm>
         </models>
 
-        <!-- Module's Events -->
         <events>
+
+            <newsletter_subscriber_save_commit_after>
+                <observers>
+                    <agilecrm_observer_subscriber>
+                        <type>singleton</type>
+                        <class>Cammino_Agilecrm_Model_Observer</class>
+                        <method>saveSubscriber</method>
+                    </agilecrm_observer_subscriber>
+                </observers>
+            </newsletter_subscriber_save_commit_after>
+
+            <controller_action_layout_generate_blocks_after>
+                <observers>
+                    <agilecrm_observer_tracking>
+                        <type>singleton</type>
+                        <class>Cammino_Agilecrm_Model_Observer</class>
+                        <method>injectTracking</method>
+                    </agilecrm_observer_tracking>
+                </observers>
+            </controller_action_layout_generate_blocks_after>
+
             <checkout_onepage_controller_success_action>
                 <observers>
-                    <agile_observer>
+                    <agilecrm_observer_order>
                         <type>singleton</type>
-                        <class>Cammino_Agile_Model_Observer</class>
-                        <method>injectScript</method>
-                    </agile_observer>
+                        <class>Cammino_Agilecrm_Model_Observer</class>
+                        <method>injectOrder</method>
+                    </agilecrm_observer_order>
                 </observers>
-            </checkout_onepage_controller_success_action>       
+            </checkout_onepage_controller_success_action>
+            
         </events>
+
     </global>
 
-    <!-- Front end -->
     <frontend>
         <routers>
-            <agile>
+            <agilecrm>
                 <use>standard</use>
                 <args>
-                    <module>Cammino_Agile</module>
-                    <frontName>agile</frontName>
+                    <module>Cammino_Agilecrm</module>
+                    <frontName>agilecrm</frontName>
                 </args>
-            </agile>
+            </agilecrm>
         </routers>
     </frontend>
 </config>
